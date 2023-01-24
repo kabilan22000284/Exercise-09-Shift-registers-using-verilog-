@@ -48,10 +48,55 @@ A Parallel in Parallel out (PIPO) shift register is used as a temporary storage 
 ### PROGRAM 
 /*
 Program for  Implementation-of Shift-registers-using-verilog-
-Developed by: 
-RegisterNumber:  
-*/
 
+Developed by: kabilan v
+
+RegisterNumber:  22000284
+
+Serial Input Parallel Output (SIPO):
+
+module SIPO(SI,Clk,PO);
+input SI,Clk;
+output[0:7]PO;
+reg[0:7]temp;
+always@(posedge Clk)
+begin
+temp = {temp[0:6],SI};
+end
+assign PO = temp;
+endmodule
+
+Parallel Input Serial Output (PISO):
+```
+module PISO(Clk, Parallel_In,load, Serial_Out);
+input Clk,load;
+input [3:0]Parallel_In;
+output reg Serial_Out;
+reg [3:0]tmp;
+always @(posedge Clk)
+begin
+if(load)
+tmp<=Parallel_In;
+else
+begin
+Serial_Out<=tmp[3];
+tmp<={tmp[2:0],1'b0};
+end
+end
+endmodule
+```
+Parallel Input Parallel Output (PIPO):
+```
+module PIPO(PI,Clk,PO);
+input Clk;
+input[3:0]PI;
+output reg[3:0]PO;
+always@(posedge Clk)
+begin
+PO = PI;
+end 
+endmodule
+```
 
 
 
@@ -59,6 +104,17 @@ RegisterNumber:
 
 ### RTL LOGIC  REGISTERS   
 
+SIPO
+
+![image](https://user-images.githubusercontent.com/123469171/214361262-0cc52a5e-1090-4639-8ef4-9be8866d9d0b.png)
+
+PISO
+
+![image](https://user-images.githubusercontent.com/123469171/214361326-456b71f4-225d-4a4f-a47c-8459fa16e2be.png)
+
+PIPO
+
+![image](https://user-images.githubusercontent.com/123469171/214361385-1289b332-324f-4bae-9096-67daf08fbfa8.png)
 
 
 
@@ -69,6 +125,19 @@ RegisterNumber:
 
 ### TIMING DIGRAMS FOR SHIFT REGISTERS
 
+SIPO
+
+![image](https://user-images.githubusercontent.com/123469171/214361009-018df064-716f-46b2-b3bf-4a28408795f9.png)
+
+PISO
+
+![image](https://user-images.githubusercontent.com/123469171/214361120-66ca809e-a8b9-4138-b1bc-8c3cd21cdab7.png)
+
+PIPO
+
+![image](https://user-images.githubusercontent.com/123469171/214361174-5f0f2a20-28c0-41f6-a817-7e5be6c56fa0.png)
+
+
 
 
 
@@ -77,3 +146,4 @@ RegisterNumber:
 
 
 ### RESULTS 
+Thus, PISO , PIPO, SIPO are implemented using verilog and their functionality using their functional tables is validated.
