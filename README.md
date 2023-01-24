@@ -54,7 +54,7 @@ Developed by: kabilan v
 RegisterNumber:  22000284
 
 Serial Input Parallel Output (SIPO):
-
+```
 module SIPO(SI,Clk,PO);
 input SI,Clk;
 output[0:7]PO;
